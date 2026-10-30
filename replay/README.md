@@ -1,0 +1,18 @@
+# Portable replay of reported results
+
+This package recalculates selected reported results from archived derived labels and saved model predictions. It does not reprocess raw batteries, retrain models, establish physical endpoint accuracy, independently validate the study, or recover the historical Contract A generator or earlier selection code. Upstream third-party materials remain subject to their respective terms; see the repository notice.
+
+Python 3.12, NumPy 2.3.5 and pandas 3.0.1 were used for the reported replay. In an environment with these dependencies, run `python verify_replay.py` from any directory. The script verifies input and reference SHA-256 hashes, runs the four calculations in this extracted directory, compares results against the archived outputs using relative and absolute tolerance 1e-9, and prints a JSON report. It writes calculated CSV files and replay logs into each analysis folder. No files outside this extracted directory are required for the replay.
+
+Inputs preserve the bytes stored in the v23 SI2 archive: the v20 historical archive nested within the v22 and v23 archives supplies `endpoint_generation_records_v4.csv`, `paired_label_contracts.csv`, the v13 saved predictions, both sealed test-label files and the v13 prediction-shift inputs. The v22 archive supplies the fixed-base-score contrast table; the outer v23 archive supplies four batches of deep-model budget predictions. `SHA256_INPUTS_AND_EXPECTED.txt` records hashes, including reference outputs. These files are derived benchmark records and do not establish their own upstream provenance or distribution rights.
+
+| Folder | Output | Manuscript role |
+| --- | --- | --- |
+| `branch` | `branch_summary.csv` and related cohort tables | Table 1A branch counts and numerical discrepancies, conditional on pre-existing generation records. |
+| `ratio` | `ratio_bootstrap_summary.csv`, `ratio_point_estimates.csv` | Table 3 original median/median analysis and post hoc aggregation/source-weight summaries; 23 seeds and source-stratified cells. |
+| `xgboost` | `xgboost_fitting_seed_bootstrap.csv` | 23 paired-seed fixed-versus-auto initialization conditional bootstrap. |
+| `budget` | `budget_ratios.csv`, `budget_AB_rank_comparisons.csv`, `budget_rank_comparisons.csv`, `budget_seed_bootstrap*.csv` | 10-seed original-versus-double budget results, conditional on saved predictions and a fixed test set. |
+
+The ratio script reproduces the stored resampling draws, comparing 45,000 original cell-weighted median/median bootstrap values to the historic replicate file. It also calculates alternative means and source weighting. The supplemental analysis excluding duplicate-original-seed pairs for the 23-seed ratio was not independently replayed by this package. The budget script recomputes both versions of the 10-seed conditional bootstrap, including and excluding same-seed duplicate pairs. Number of comparison rows does not equal number of independent datasets.
+
+The path-only edits to the four copied scripts replace hard-coded original locations with package-relative paths; calculations and seeds are unchanged. Figures, conformal calibration, current 823-object coordinate and terminal checks, historic feature extraction, and model training are outside this replay. For end-to-end reproduction, separately obtain the documented processed objects and code, verify hashes, install the recorded training environment and follow the upstream licence terms; the exact early internal-holdout execution script remains unavailable. The separate `budget_extension` directory also checks the saved 40/80-epoch validation curves and selected-budget predictions.

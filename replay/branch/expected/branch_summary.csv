@@ -1,0 +1,4 @@
+endpoint_kind,n_cells,changed,changed_fraction,median_absolute_delta,p90_absolute_delta,discordant_pairs,comparable_pairs,discordant_fraction
+extrapolated_final20,173,8,0.046242774566473986,0.0,0.0,0,14872,0.0
+observed_first_crossing,628,244,0.3885350318471338,0.0,45.0,2286,196625,0.011626191989828354
+observed_interpolated_crossing,22,0,0.0,0.0,0.0,0,229,0.0

@@ -1,0 +1,14 @@
+dataset_group,both_contracts_eol_le_100,included,no_release_label_generator_final_soh_ge_0.825
+CALCE,0,13,0
+HNEI,0,14,0
+HUST,0,77,0
+ISU_ILCC,1,239,0
+MATR,0,169,0
+MICH,0,40,0
+MICH_EXP,4,8,6
+RWTH,0,48,0
+SNL,0,50,0
+Stanford,0,41,0
+Tongji,9,99,0
+UL_PUR,0,2,0
+XJTU,0,23,0
